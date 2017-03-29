@@ -1,0 +1,4 @@
+name: ${project.build.finalName}
+version: ${project.version}
+main: ${bukkit.main}
+author: ${bukkit.author}
