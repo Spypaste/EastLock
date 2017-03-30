@@ -20,7 +20,8 @@ public class MainConfig {
             if (configuration.contains("database.mysql.host")
                     && configuration.contains("database.mysql.db")
                     && configuration.contains("database.mysql.user")
-                    && configuration.contains("database.mysql.pass") && configuration.contains("database.mysql.port")) {
+                    && configuration.contains("database.mysql.pass")
+                    && configuration.contains("database.mysql.port")) {
                 dataBaseHost = configuration.getString("database.mysql.host");
                 dataBasePort = configuration.getInt("database.mysql.port");
                 dataBaseDbName = configuration.getString("database.mysql.db");
