@@ -20,8 +20,9 @@ public class MainConfig {
             if (configuration.contains("database.mysql.host")
                     && configuration.contains("database.mysql.db")
                     && configuration.contains("database.mysql.user")
-                    && configuration.contains("database.mysql.pass")) {
+                    && configuration.contains("database.mysql.pass") && configuration.contains("database.mysql.port")) {
                 dataBaseHost = configuration.getString("database.mysql.host");
+                dataBasePort = configuration.getInt("database.mysql.port");
                 dataBaseDbName = configuration.getString("database.mysql.db");
                 dataBaseUser = configuration.getString("database.mysql.user");
                 dataBasePassWord = configuration.getString("database.mysql.password");
@@ -75,6 +76,12 @@ public class MainConfig {
     }
 
     private String dataBaseFile;
+
+    private int dataBasePort;
+
+    public int getDataBasePort() {
+        return dataBasePort;
+    }
 
     public String getDataBaseFile() {
         return dataBaseFile;
