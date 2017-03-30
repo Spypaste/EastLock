@@ -1,4 +1,4 @@
-package net.xyz.spypaste.easylock;
+package xyz.spypaste.easylock.config;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

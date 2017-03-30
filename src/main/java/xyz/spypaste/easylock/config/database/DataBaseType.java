@@ -1,4 +1,4 @@
-package net.xyz.spypaste.easylock.database;
+package xyz.spypaste.easylock.config.database;
 
 /**
  * Created by Spypaste on 2017/03/29.
