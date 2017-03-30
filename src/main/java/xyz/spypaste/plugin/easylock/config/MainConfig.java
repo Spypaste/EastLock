@@ -1,7 +1,7 @@
-package xyz.spypaste.easylock.config.config;
+package xyz.spypaste.plugin.easylock.config;
 
-import xyz.spypaste.easylock.config.Main;
-import xyz.spypaste.easylock.config.database.DataBaseType;
+import xyz.spypaste.plugin.easylock.Main;
+import xyz.spypaste.plugin.easylock.database.DataBaseType;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**

@@ -8,7 +8,7 @@
     <artifactId>EasyLock</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <bukkit.main>xyz.spypaste.easylock.Main</bukkit.main>
+        <bukkit.main>xyz.spypaste.plugin.easylock.Main</bukkit.main>
         <bukkit.author>Spypaste</bukkit.author>
     </properties>
     <build>

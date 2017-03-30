@@ -1,6 +1,6 @@
-package xyz.spypaste.easylock.config;
+package xyz.spypaste.plugin.easylock;
 
-import xyz.spypaste.easylock.config.config.MainConfig;
+import xyz.spypaste.plugin.easylock.config.MainConfig;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
