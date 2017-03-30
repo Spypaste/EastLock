@@ -1,0 +1,10 @@
+database: #データベースの設定
+   type: sqlite #利用するデータベースのタイプ(sqlite or mysql)
+   sqlite: #sqliteを使う場合の設定
+      filename: database.db #sqliteのデータベースファイルのファイル名
+   mysql: #mysqlを使う場合の設定
+      host: www.example.com #mysqlのホスト名
+      port: 3306 #mysqlのポート(default 3306)
+      db: minecraft #mysqlのテーブル名
+      user: minecraft #mysqlにログインするユーザー
+      pass: password #mysqlにログインするためのパスワード
