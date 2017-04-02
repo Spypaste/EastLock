@@ -17,7 +17,7 @@ public class DataBaseManager {
 
     public static Connection getConnection() {
         try {
-            if (!connection.isClosed()) {
+            if (connection != null &&  !connection.isClosed()) {
                 connection.close();
             }
             MainConfig config = Main.getMainConfig();
