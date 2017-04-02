@@ -34,7 +34,7 @@ public class DataBaseManager {
                 connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
             }
         } catch (SQLException e) {
-            System.out.print("データベースに接続できませんでした。");
+            System.err.print("データベースに接続できませんでした。");
             return null;
         }
         return connection;
