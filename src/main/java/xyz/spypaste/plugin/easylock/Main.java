@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         config = new MainConfig();
         config.loadConfig();
+        registerListener();
     }
 
     @Override
