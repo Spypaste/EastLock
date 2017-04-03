@@ -32,7 +32,7 @@ public class MainConfig {
         } else if (type.equalsIgnoreCase("sqlite")) {
             dataBaseType = DataBaseType.sqlite;
             if (configuration.contains("database.sqlite.filename")) {
-                dataBaseFile = getDataBaseFile();
+                dataBaseFile = configuration.getString("database.sqlite.filename");
                 isError = false;
             }
         }
@@ -40,7 +40,7 @@ public class MainConfig {
             lang = configuration.getString("lang");
             isError = false;
         }
-        return isError;
+        return !isError;
     }
 
     public FileConfiguration getConfiguration() {
