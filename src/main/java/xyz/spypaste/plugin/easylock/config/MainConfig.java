@@ -37,7 +37,8 @@ public class MainConfig {
             }
         }
         if (configuration.contains("lang")){
-
+            lang = configuration.getString("lang");
+            isError = false;
         }
         return isError;
     }
