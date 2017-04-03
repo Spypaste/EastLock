@@ -2,9 +2,10 @@ package xyz.spypaste.plugin.easylock;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import xyz.spypaste.plugin.easylock.config.MainConfig;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.spypaste.plugin.easylock.config.MainConfig;
+import xyz.spypaste.plugin.easylock.database.DataBaseManager;
 
 /**
  * Created by Spypaste on 2017/03/29.
@@ -24,6 +25,12 @@ public class Main extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        if (!(DataBaseManager.getConnection() == null)){
+            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "データベースに接続することができなかったため、EasyLockプラグインを停止します。");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        DataBaseManager.connectionClose();
         registerListener();
     }
 
