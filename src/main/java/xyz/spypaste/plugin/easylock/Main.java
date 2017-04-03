@@ -25,7 +25,7 @@ public class Main extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        if (!(DataBaseManager.getConnection() == null)){
+        if (DataBaseManager.getConnection() == null){
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "データベースに接続することができなかったため、EasyLockプラグインを停止します。");
             getServer().getPluginManager().disablePlugin(this);
             return;
