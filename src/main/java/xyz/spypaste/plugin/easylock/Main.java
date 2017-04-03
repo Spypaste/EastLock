@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     private static Main instance;
     private static MainConfig config;
-
+    private static String prefix = "[EasyLock] ";
     @Override
     public void onEnable() {
         instance = this;
@@ -20,7 +20,7 @@ public class Main extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         config = new MainConfig();
         if (!config.loadConfig()) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "コンフィグを読み込むことができなかったため、EasyLockプラグインを停止します。");
+            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "コンフィグを読み込むことができなかったため、EasyLockプラグインを停止します。");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -43,5 +43,9 @@ public class Main extends JavaPlugin {
 
     public static MainConfig getMainConfig() {
         return config;
+    }
+
+    public static String getPrefix() {
+        return prefix;
     }
 }
