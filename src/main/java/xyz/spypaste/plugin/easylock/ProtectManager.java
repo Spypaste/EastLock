@@ -17,14 +17,15 @@ public class ProtectManager {
             "CREATE TABLE IF NOT EXISTS protect_location" +
                     "(" +
                     "uuid VARCHAR(36) NOT NULL, " +
+                    "loc_world VARCHAR(50) NOT NULL," +
                     "loc_x INT(3) NOT NULL," +
                     "loc_y INT(3) NOT NULL," +
                     "loc_z INT(3) NOT NULL" +
                     ");";
     private static final String GET_PROTECT_BLOCK_FOR_PLAYER =
-            "SELECT uuid FROM protect_location WHERE loc_x=? AND loc_y=? AND loc_z=?";
+            "SELECT uuid FROM protect_location WHERE loc_world=? AND loc_x=? AND loc_y=? AND loc_z=?";
     private static final String ADD_PROTECT_BLOCK_FOR_PLAYER =
-            "INSERT INTO protect_location (uuid, loc_x , loc_y , loc_z) VALUES (?, ?, ?, ?);";
+            "INSERT INTO protect_location (uuid, loc_world , loc_x , loc_y , loc_z) VALUES (?, ?, ?, ?, ?);";
 
     public static boolean setup() {
         Connection connection = DataBaseManager.getConnection();
@@ -44,9 +45,10 @@ public class ProtectManager {
         try {
             PreparedStatement preparedStatement
                     = DataBaseManager.getConnection().prepareStatement(GET_PROTECT_BLOCK_FOR_PLAYER);
-            preparedStatement.setInt(1, loc.getBlockX());
-            preparedStatement.setInt(2, loc.getBlockY());
-            preparedStatement.setInt(3, loc.getBlockZ());
+            preparedStatement.setString(1, loc.getWorld().getName());
+            preparedStatement.setInt(2, loc.getBlockX());
+            preparedStatement.setInt(3, loc.getBlockY());
+            preparedStatement.setInt(4, loc.getBlockZ());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 String uuid = resultSet.getString("uuid");
@@ -65,9 +67,10 @@ public class ProtectManager {
             PreparedStatement preparedStatement
                     = DataBaseManager.getConnection().prepareStatement(ADD_PROTECT_BLOCK_FOR_PLAYER);
             preparedStatement.setString(1, player.getUniqueId().toString());
-            preparedStatement.setInt(2, loc.getBlockX());
-            preparedStatement.setInt(3, loc.getBlockY());
-            preparedStatement.setInt(4, loc.getBlockZ());
+            preparedStatement.setString(2, loc.getWorld().getName());
+            preparedStatement.setInt(3, loc.getBlockX());
+            preparedStatement.setInt(4, loc.getBlockY());
+            preparedStatement.setInt(5, loc.getBlockZ());
             preparedStatement.executeUpdate();
             preparedStatement.close();
             DataBaseManager.connectionClose();
