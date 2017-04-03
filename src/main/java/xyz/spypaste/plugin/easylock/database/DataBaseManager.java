@@ -19,9 +19,7 @@ public class DataBaseManager {
 
     public static Connection getConnection() {
         try {
-            if (connection != null &&  !connection.isClosed()) {
-                connection.close();
-            }
+            connectionClose();
             MainConfig config = Main.getMainConfig();
             if (config.getDataBaseType().equals(DataBaseType.mysql)) {
                 connection = DriverManager.getConnection("jdbc:mysql://" + config.getDataBaseHost() + ":" + Integer.toString(config.getDataBasePort()) + "/" + config.getDataBaseDbName(), config.getDataBaseUser(), config.getDataBasePassWord());
@@ -36,9 +34,21 @@ public class DataBaseManager {
                 connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
             }
         } catch (SQLException e) {
-            Bukkit.getConsoleSender().sendMessage(Main.getPrefix() + ChatColor.RED+ "データベースに接続できませんでした。");
+            Bukkit.getConsoleSender().sendMessage(Main.getPrefix() + ChatColor.RED + "データベースに接続できませんでした。");
             return null;
         }
         return connection;
+    }
+
+    public static Boolean connectionClose() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                connection = null;
+                return true;
+            }
+        } catch (SQLException e) {
+        }
+        return false;
     }
 }
