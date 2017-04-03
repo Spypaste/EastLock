@@ -1,5 +1,7 @@
 package xyz.spypaste.plugin.easylock;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import xyz.spypaste.plugin.easylock.config.MainConfig;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,13 +12,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     private static Main instance;
     private static MainConfig config;
+
     @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         config = new MainConfig();
-        config.loadConfig();
+        if (!config.loadConfig()) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "コンフィグを読み込むことができなかったため、EasyLockプラグインを停止します。");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         registerListener();
     }
 
