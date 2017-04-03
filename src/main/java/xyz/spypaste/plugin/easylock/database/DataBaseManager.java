@@ -25,12 +25,6 @@ public class DataBaseManager {
                 connection = DriverManager.getConnection("jdbc:mysql://" + config.getDataBaseHost() + ":" + Integer.toString(config.getDataBasePort()) + "/" + config.getDataBaseDbName(), config.getDataBaseUser(), config.getDataBasePassWord());
             } else if (config.getDataBaseType().equals(DataBaseType.sqlite)) {
                 File file = new File(Main.getInstance().getDataFolder(), config.getDataBaseFile());
-                if (!file.exists()) {
-                    try {
-                        file.createNewFile();
-                    } catch (IOException e) {
-                    }
-                }
                 connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
             }
         } catch (SQLException e) {
