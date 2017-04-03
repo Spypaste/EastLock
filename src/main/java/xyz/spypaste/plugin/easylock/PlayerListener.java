@@ -1,5 +1,6 @@
 package xyz.spypaste.plugin.easylock;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -7,7 +8,10 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import java.util.UUID;
 
 /**
  * Created by Spypaste on 2017/03/29.
@@ -18,15 +22,28 @@ public class PlayerListener implements Listener {
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getClickedBlock().getType() != Material.CHEST) {
             return;
         }
-        Player player = e.getPlayer();
         Location location = e.getClickedBlock().getLocation();
-        if (!isProtectBy(location,player)){
+        Player player = e.getPlayer();
+        String owner = ProtectManager.getProtectOwner(location);
+        if (owner != null && !owner.equalsIgnoreCase(player.getUniqueId().toString())){
             e.setUseInteractedBlock(Event.Result.DENY);
             e.setUseItemInHand(Event.Result.DENY);
+            String name = Main.getInstance().getServer().getOfflinePlayer(UUID.fromString(owner)).getName();
+            if (name == null) name = "unknown";
+            player.sendMessage(ChatColor.YELLOW + "This chest is protected by " + name);
             return;
         }
     }
-    private static Boolean isProtectBy(Location loc, Player player){
-        return false;
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event){
+        if (!event.getBlock().getType().equals(Material.CHEST)){
+            return;
+        }
+        Player player = event.getPlayer();
+        if (ProtectManager.addProtectOwner(event.getBlock().getLocation(),event.getPlayer())){
+            player.sendMessage(ChatColor.YELLOW + "This chest is protected by you!");
+        }else{
+            player.sendMessage(ChatColor.RED + "Could not protect due to server error!");
+        }
     }
 }
