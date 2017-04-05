@@ -1,5 +1,6 @@
 package xyz.spypaste.plugin.easylock;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -40,10 +41,15 @@ public class PlayerListener implements Listener {
             return;
         }
         Player player = event.getPlayer();
-        if (ProtectManager.addProtectOwner(event.getBlock().getLocation(),event.getPlayer())){
-            player.sendMessage(ChatColor.YELLOW + "This chest is protected by you!");
-        }else{
-            player.sendMessage(ChatColor.RED + "Could not protect due to server error!");
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                if (ProtectManager.addProtectOwner(event.getBlock().getLocation(), event.getPlayer())) {
+                    player.sendMessage(ChatColor.YELLOW + "This chest is protected by you!");
+                } else {
+                    player.sendMessage(ChatColor.RED + "Could not protect due to server error!");
+                }
+            }
+        });
     }
 }
